@@ -1,16 +1,38 @@
 "use client";
-import React from "react";
-import { Form, Input, Button } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, message } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { formValues } from "@/types/auth/sign-in/form"
+import { formValues } from "@/types/auth/sign-in/form";
+import { useRouter } from "next/navigation";
 
 export const SignInForm = () => {
+    const router = useRouter()
+    const [messageService, contextHolder] = message.useMessage();
+    const [loading, setLoading] = useState(false);
+
     const onSubmit = ({ email, password }: formValues) => {
-        console.log("email", email);
-        console.log("password", password);
+        try {
+            setLoading(true);
+            if (email === "example@demo.com" && password === "demo123") {
+                messageService.success("login Success!");
+                router.push("/home/dashboard");
+            } else {
+                messageService.error("Incorrect User or Password");
+            }
+        } catch (error) {
+            messageService.error("Incorrect User or Password");
+        } finally {
+            setLoading(false);
+        }
     };
     return (
-        <Form name="sign-in-form" onFinish={onSubmit} autoComplete="off" className="flex flex-col justify-center items-center min-w-[377px]">
+        <Form
+            name="sign-in-form"
+            onFinish={onSubmit}
+            autoComplete="off"
+            className="flex flex-col justify-center items-center min-w-[377px]"
+        >
+            {contextHolder}
             <Form.Item<formValues>
                 className="w-full"
                 name={"email"}
@@ -21,13 +43,15 @@ export const SignInForm = () => {
                         message: "Please fill the email",
                     },
                 ]}
-
             >
-                <Input placeholder="Email" prefix={
-                    <div className="mr-2">
-                        <MailOutlined />
-                    </div>
-                }
+                <Input
+                    className="!rounded-2xl !h-10"
+                    placeholder="Email"
+                    prefix={
+                        <div className="mr-2">
+                            <MailOutlined className="!text-gray-400 !text-base" />
+                        </div>
+                    }
                 />
             </Form.Item>
             <Form.Item<formValues>
@@ -40,9 +64,24 @@ export const SignInForm = () => {
                     },
                 ]}
             >
-                <Input.Password placeholder="Password" prefix={<div className="mr-2"><LockOutlined /></div>} />
+                <Input.Password
+                    className="!rounded-2xl !h-10"
+                    placeholder="Password"
+                    prefix={
+                        <div className="mr-2">
+                            <LockOutlined className="!text-gray-400 !text-base" />
+                        </div>
+                    }
+                />
             </Form.Item>
-            <Button className="w-full" type="primary" htmlType="submit">Login</Button>
+            <Button
+                className="w-full !bg-blue-900 !text-base !h-10 !rounded-2xl"
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+            >
+                Login
+            </Button>
         </Form>
     );
 };
