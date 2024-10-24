@@ -9,7 +9,6 @@ interface CardComponentProps {
 export const CardComponent: FC<CardComponentProps> = ({ title, children }) => {
   return (
     <Card
-      title={<h1 className="text-center w-full text-2xl font-light">{title}</h1>}
       style={{
         borderRadius: "16px",
       }}
@@ -24,6 +23,7 @@ export const CardComponent: FC<CardComponentProps> = ({ title, children }) => {
         },
       }}
     >
+      <h1 className="text-center w-full text-2xl font-light mb-8">{title}</h1>
       {children}
     </Card>
   );
