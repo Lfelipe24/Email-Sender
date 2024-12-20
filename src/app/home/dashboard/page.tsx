@@ -1,16 +1,18 @@
 "use client"
-import { CardComponent } from '@/components/globals'
 import React from 'react'
 
-export default function DashboardPage() {
-    return (
-      <main className="py-5 px-10 w-full flex flex-row justify-center items-center">
-      <section>
-      <CardComponent title='Email sender'>
-            <h1>Email sender</h1>
-        </CardComponent>
-      </section>
-    </main>
+import { EmailSender } from "@/components/dashboard/email-sender"
+import { EmailHistory } from "@/components/dashboard/email-history"
 
-    )
+export default function DashboardPage() {
+  return (
+    <main className="p-5 w-full flex flex-row justify-center">
+      <div className='w-1/2 mx-1'>
+        <EmailHistory />
+      </div>
+      <div className=' w-1/2 mx-1'>
+        <EmailSender />
+      </div>
+    </main>
+  )
 }

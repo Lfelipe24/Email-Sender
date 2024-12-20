@@ -9,21 +9,9 @@ interface CardComponentProps {
 export const CardComponent: FC<CardComponentProps> = ({ title, children }) => {
   return (
     <Card
-      style={{
-        borderRadius: "16px",
-      }}
-      styles={{
-        body: {
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        },
-      }}
+      className="!rounded-2xl w-full h-full"
     >
-      <h1 className="text-center w-full text-2xl font-light mb-8">{title}</h1>
+      {title && <h1 className="w-full text-xl font-light mb-8">{title}</h1>}
       {children}
     </Card>
   );
