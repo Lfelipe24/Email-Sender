@@ -11,7 +11,7 @@ export const CardComponent: FC<CardComponentProps> = ({ title, children }) => {
     <Card
       className="!rounded-2xl w-full h-full"
     >
-      {title && <h1 className="w-full text-xl font-light mb-8">{title}</h1>}
+      {title && <h1 className="w-full text-center text-xl font-light mb-8">{title}</h1>}
       {children}
     </Card>
   );

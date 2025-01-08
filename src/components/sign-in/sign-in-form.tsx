@@ -4,23 +4,27 @@ import { Form, Input, Button, message } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { formValues } from "@/types/auth/sign-in/form";
 import { useRouter } from "next/navigation";
+import { signIn } from "@/services/auth/sign-in"
 
 export const SignInForm = () => {
     const router = useRouter()
     const [messageService, contextHolder] = message.useMessage();
     const [loading, setLoading] = useState(false);
 
-    const onSubmit = ({ email, password }: formValues) => {
+    const onSubmit = async ({ email, password }: formValues) => {
         try {
             setLoading(true);
-            if (email === "example@demo.com" && password === "demo123") {
+            if (!email || !password) return
+
+            const response = await signIn({ email: email, password: password })
+            if (response && response.status === 200) {
                 messageService.success("login Success!");
                 router.push("/home/dashboard");
             } else {
                 messageService.error("Incorrect User or Password");
             }
         } catch (error) {
-            messageService.error("Incorrect User or Password");
+            messageService.error("Error with login service");
         } finally {
             setLoading(false);
         }
