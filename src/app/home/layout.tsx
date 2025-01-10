@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { PropsWithChildren } from "react";
-import { Layout, Grid, Button, Avatar, Dropdown } from "antd";
-import { useRouter, usePathname } from "next/navigation";
+import { Layout, Grid, Avatar, Dropdown } from "antd";
+import { useRouter } from "next/navigation";
 import { LogoutOutlined } from "@ant-design/icons";
 
 const { Header, Content } = Layout;
@@ -23,27 +23,27 @@ function LayoutHome({ children }: PropsWithChildren) {
         </div>
         <div className="flex items-center flex-1 justify-end">
           {/* About page */}
-            <Dropdown
+          <Dropdown
             className="hover:cursor-pointer"
-              trigger={["click"]}
-              menu={{
-                items: [
-                    {
-                        key: "user",
-                        label: "Felipe Fernandez",
-                        disabled: true
-                      },
-                  {
-                    key: "sign-out",
-                    label: "Sign out",
-                    icon: <LogoutOutlined />,
-                    onClick: onLogOut,
-                  },
-                ],
-              }}
-            >
-              <Avatar className="!bg-cyan-800 !text-white">FF</Avatar>
-            </Dropdown>
+            trigger={["click"]}
+            menu={{
+              items: [
+                {
+                  key: "user",
+                  label: "Felipe Fernandez",
+                  disabled: true
+                },
+                {
+                  key: "sign-out",
+                  label: "Sign out",
+                  icon: <LogoutOutlined />,
+                  onClick: onLogOut,
+                },
+              ],
+            }}
+          >
+            <Avatar className="!bg-cyan-800 !text-white">FF</Avatar>
+          </Dropdown>
         </div>
       </Header>
       <Content className="flex-1 flex flex-col">

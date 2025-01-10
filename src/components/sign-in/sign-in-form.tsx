@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import { Form, Input, Button, message } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { formValues } from "@/types/auth/sign-in/form";
+import { formValues } from "@/types/auth/sign-in";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/services/auth/sign-in"
+import { setCookie, refreshToken } from "@/utils/cookies"
+import { getExpireDate } from "@/utils/date"
 
 export const SignInForm = () => {
     const router = useRouter()
@@ -17,9 +19,16 @@ export const SignInForm = () => {
             if (!email || !password) return
 
             const response = await signIn({ email: email, password: password })
-            if (response && response.status === 200) {
+            if (response && response.statusCode === 200) {
+                // Save tokens in cookies
+                setCookie("accessToken", response.body.access_token, getExpireDate(30, 'minute'))
+                setCookie("refreshToken", response.body.refresh_token, getExpireDate(1, 'day'))
+
+                // test refreshtoken
+                refreshToken()
+
                 messageService.success("login Success!");
-                router.push("/home/dashboard");
+                // router.push("/home/dashboard");
             } else {
                 messageService.error("Incorrect User or Password");
             }

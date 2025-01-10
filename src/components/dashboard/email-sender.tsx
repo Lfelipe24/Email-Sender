@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Button, Input } from "antd"
 import { CardComponent } from '../globals'
-import { EmailSenderFormType } from "@/types/dashboard/email-sender/form"
+import { EmailSenderFormType } from "@/types/dashboard/email-sender"
 import { SendOutlined } from '@ant-design/icons'
 
 const { TextArea } = Input
